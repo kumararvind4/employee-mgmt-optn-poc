@@ -25,7 +25,6 @@ jobs:
           java-version: '21'
           distribution: 'microsoft'
 
-      # CORRECT: Keeps skipping tests so the build runner does not trigger database 'sa' connection failures
       - name: Build with Maven
         run: mvn clean package -DskipTests
 
@@ -47,16 +46,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: java-app
-          # FIXED: Forcing the artifact to download directly to the root workspace path
           path: .
 
-      # CORRECT: Has permissions blocks and uses the auto-generated variable names from Deployment Center
+      # 🟢 FIXED: Updated to target your clean, verified Azure credentials securely
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B9C0318DF066460E931B985C9AA7FEDA }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_61FD72D6439D4ED8A531CF84E45DA483 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_039CFE67499047D19B91750A654F6690 }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -64,5 +62,4 @@ jobs:
         with:
           app-name: 'emp-server'
           slot-name: 'Production'
-          # FIXED: Explicitly target the extracted inner jar path folder structure
           package: 'target/*.jar'
