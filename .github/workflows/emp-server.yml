@@ -23,13 +23,13 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        run: mvn clean package -DskipTests # 👈 Changed 'install' to 'package' and skipped tests for speed
+        run: mvn clean package -DskipTests
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: 'target/*.jar' # 👈 Fixed: Removed github.workspace wrapper for cleaner mapping
+          path: 'target/*.jar'
 
   deploy:
     runs-on: windows-latest
@@ -42,12 +42,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: java-app
-          path: target # 👈 Fixed: Stripped leading dot/slash for absolute alignment
+          path: target
 
-      - name: Login to Azure using Secret Bundle
-        uses: azure/login@v2 # 👈 Fixed: Downgraded to v2 because v3 has known service principal bugs on Windows
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      # ⚙️ REMOVED THE FAILING AZURE LOGIN STEP COMPLETELY
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -55,4 +52,6 @@ jobs:
         with:
           app-name: 'emp-server'
           slot-name: 'Production'
-          package: 'target/*.jar' # 👈 Fixed: Removed leading dot-slash to resolve Windows runner lookups
+          package: 'target/*.jar'
+          # 🔐 ADDED: Direct authentication via your App Service Publish Profile token
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
