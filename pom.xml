@@ -80,12 +80,6 @@
 			<groupId>com.azure</groupId>
 			<artifactId>azure-storage-blob</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>com.azure</groupId>-->
-<!--			<artifactId>azure-core-http-netty</artifactId>-->
-<!--&lt;!&ndash;			<version>4.1.101 final</version> &lt;!&ndash; Pairs natively with azure-storage-blob 12.26.0 &ndash;&gt;&ndash;&gt;-->
-<!--		</dependency>-->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -107,7 +101,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<!-- Spring Boot Plugin -->

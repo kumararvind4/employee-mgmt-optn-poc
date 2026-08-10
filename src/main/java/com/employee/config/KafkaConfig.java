@@ -50,7 +50,7 @@ public class KafkaConfig {
             String jaasConfig = secretClient.getSecret(kafkaSecretName).getValue();
 
             Map<String, Object> configProps = new HashMap<>();
-            configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "employee-kafka-ns.servicebus.windows.net:9093");
+            configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "emp-kafka-ns.servicebus.windows.net:9093");
             configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
             configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
             configProps.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");

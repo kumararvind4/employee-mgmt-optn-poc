@@ -54,7 +54,7 @@ public class KafkaConsumerConfig {
             String jaasConfig = secretClient.getSecret(kafkaSecretName).getValue();
 
             Map<String, Object> props = new HashMap<>();
-            props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "employee-kafka-ns.servicebus.windows.net:9093");
+            props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "emp-kafka-ns.servicebus.windows.net:9093");
             props.put(ConsumerConfig.GROUP_ID_CONFIG, "employee-group");
             props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
             props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
